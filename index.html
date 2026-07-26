@@ -3,47 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Damo Data Hub</title>
+    <title>Damo Data Hub - Fast & Reliable Data Bundles</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
+            background-color: #f0f4f1;
             margin: 0;
-            padding: 20px;
-            text-align: center;
+            padding: 15px;
+            color: #333;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
         }
         header {
-            background-color: #075e54;
+            background: linear-gradient(135deg, #0b4f34, #13754b);
             color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(11, 79, 52, 0.2);
         }
-        h1 {
-            margin: 0;
-            font-size: 24px;
+        h1 { margin: 0; font-size: 26px; }
+        p { margin: 8px 0 0; font-size: 14px; opacity: 0.95; }
+        .section-title {
+            color: #0b4f34;
+            border-bottom: 3px solid #0b4f34;
+            padding-bottom: 8px;
+            margin-top: 35px;
+            font-size: 20px;
         }
-        p {
-            color: #555;
+        body.dark-mode .section-title {
+            color: #4db6ac;
+            border-bottom: 3px solid #4db6ac;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
         .card {
             background: white;
-            padding: 20px;
-            margin: 15px auto;
-            border-radius: 8px;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid #0b4f34;
+            transition: background 0.3s;
         }
-        .btn {
-            display: inline-block;
-            background-color: #25d366;
+        body.dark-mode .card {
+            background: #1e1e1e;
+            border-top: 4px solid #4db6ac;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        .card h3 { margin: 0 0 8px; color: #222; font-size: 17px; }
+        body.dark-mode .card h3 { color: #fff; }
+        .validity { font-size: 13px; color: #666; margin-bottom: 10px; }
+        body.dark-mode .validity { color: #aaa; }
+        .price { font-size: 20px; font-weight: bold; color: #0b4f34; margin: 12px 0; }
+        body.dark-mode .price { color: #4db6ac; }
+        button {
+            background-color: #0b4f34;
             color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+            border: none;
+            padding: 12px 15px;
+            font-size: 15px;
             font-weight: bold;
-            margin-top: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
         }
+        button:hover { background-color: #13754b; }
+        
+        /* Settings & Support Panel Styling */
+        .settings-bar {
+            margin-top: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        body.dark-mode .settings-bar {
+            background: #1e1e1e;
+        }
+        .settings-bar h3 { margin-top: 0; color: #0b4f34; }
+        body.dark-mode .settings-bar h3 { color: #4db6ac; }
+        .settings-btn {
+            background-color: #333;
+            margin-top: 10px;
+            width: 100%;
+            padding: 12px 15px;
+        }
+        body.dark-mode .settings-btn {
+            background-color: #444;
+        }
+        .whatsapp-btn {
+            background-color: #25d366;
+            margin-top: 10px;
+            text-decoration: none;
+            display: block;
+            color: white;
+            padding: 12px 15px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .whatsapp-btn:hover { background-color: #1ebe5d; }
     </style>
 </head>
 <body>
@@ -53,58 +125,209 @@
         <p>Fast & Reliable Data Bundles</p>
     </header>
 
-    <!-- MTN PLANS -->
-    <div class="card">
-        <h3>MTN 1GB (2 Days)</h3>
-        <p>Valid for 48 Hours</p>
-        <p><strong>Price: ₦600</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20MTN%201GB%202-Day%20data." target="_blank">Order on WhatsApp</a>
+    <!-- MTN SECTION -->
+    <h2 class="section-title">MTN Data Bundles</h2>
+    <div class="card-container">
+        <div class="card">
+            <h3>MTN 200MB</h3>
+            <div class="validity">Valid for 1 Day</div>
+            <div class="price">₦250</div>
+            <button onclick="payWithPaystack('MTN 200MB (1-Day)', 250)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 500MB</h3>
+            <div class="validity">Valid for 2 Days</div>
+            <div class="price">₦400</div>
+            <button onclick="payWithPaystack('MTN 500MB (2-Day)', 400)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 1GB</h3>
+            <div class="validity">Valid for 7 Days</div>
+            <div class="price">₦700</div>
+            <button onclick="payWithPaystack('MTN 1GB (7-Day)', 700)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 1GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦550</div>
+            <button onclick="payWithPaystack('MTN 1GB (30-Day)', 550)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 2GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,050</div>
+            <button onclick="payWithPaystack('MTN 2GB (30-Day)', 1050)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 3GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,550</div>
+            <button onclick="payWithPaystack('MTN 3GB (30-Day)', 1550)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 5GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦2,500</div>
+            <button onclick="payWithPaystack('MTN 5GB (30-Day)', 2500)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>MTN 10GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦3,900</div>
+            <button onclick="payWithPaystack('MTN 10GB (30-Day)', 3900)">Buy Now</button>
+        </div>
     </div>
 
-    <div class="card">
-        <h3>MTN 1GB (1 Day)</h3>
-        <p>Valid for 24 Hours</p>
-        <p><strong>Price: ₦500</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20MTN%201GB%201-Day%20data." target="_blank">Order on WhatsApp</a>
+    <!-- GLO SECTION -->
+    <h2 class="section-title">Glo Data Bundles</h2>
+    <div class="card-container">
+        <div class="card">
+            <h3>Glo 250MB</h3>
+            <div class="validity">Valid for 3 Days</div>
+            <div class="price">₦200</div>
+            <button onclick="payWithPaystack('Glo 250MB (3-Day)', 200)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Glo 800MB</h3>
+            <div class="validity">Valid for 7 Days</div>
+            <div class="price">₦650</div>
+            <button onclick="payWithPaystack('Glo 800MB (7-Day)', 650)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Glo 1.5GB</h3>
+            <div class="validity">Valid for 14 Days</div>
+            <div class="price">₦1,100</div>
+            <button onclick="payWithPaystack('Glo 1.5GB (14-Day)', 1100)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Glo 1GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦500</div>
+            <button onclick="payWithPaystack('Glo 1GB (30-Day)', 500)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Glo 3GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,450</div>
+            <button onclick="payWithPaystack('Glo 3GB (30-Day)', 1450)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Glo 7GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦3,200</div>
+            <button onclick="payWithPaystack('Glo 7GB (30-Day)', 3200)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Glo 10GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦3,900</div>
+            <button onclick="payWithPaystack('Glo 10GB (30-Day)', 3900)">Buy Now</button>
+        </div>
     </div>
 
-    <div class="card">
-        <h3>MTN 1GB (30 Days)</h3>
-        <p>Valid for 30 Days</p>
-        <p><strong>Price: ₦300</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20MTN%201GB%2030-Day%20data." target="_blank">Order on WhatsApp</a>
+    <!-- AIRTEL SECTION -->
+    <h2 class="section-title">Airtel Data Bundles</h2>
+    <div class="card-container">
+        <div class="card">
+            <h3>Airtel 150MB</h3>
+            <div class="validity">Valid for 2 Days</div>
+            <div class="price">₦200</div>
+            <button onclick="payWithPaystack('Airtel 150MB (2-Day)', 200)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Airtel 750MB</h3>
+            <div class="validity">Valid for 7 Days</div>
+            <div class="price">₦700</div>
+            <button onclick="payWithPaystack('Airtel 750MB (7-Day)', 700)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Airtel 2GB</h3>
+            <div class="validity">Valid for 14 Days</div>
+            <div class="price">₦1,400</div>
+            <button onclick="payWithPaystack('Airtel 2GB (14-Day)', 1400)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Airtel 1GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦500</div>
+            <button onclick="payWithPaystack('Airtel 1GB (30-Day)', 500)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Airtel 3GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,500</div>
+            <button onclick="payWithPaystack('Airtel 3GB (30-Day)', 1500)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Airtel 6GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦2,800</div>
+            <button onclick="payWithPaystack('Airtel 6GB (30-Day)', 2800)">Buy Now</button>
+        </div>
+        <div class="card">
+            <h3>Airtel 10GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦3,900</div>
+            <button onclick="payWithPaystack('Airtel 10GB (30-Day)', 3900)">Buy Now</button>
+        </div>
     </div>
 
-    <!-- AIRTEL PLANS -->
-    <div class="card">
-        <h3>Airtel 1GB (1 Day)</h3>
-        <p>Valid for 24 Hours</p>
-        <p><strong>Price: ₦500</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20Airtel%201GB%201-Day%20data." target="_blank">Order on WhatsApp</a>
+    <!-- SETTINGS & SUPPORT PANEL -->
+    <div class="settings-bar">
+        <h3>⚙️ Hub Settings & Support</h3>
+        <p>Need help or want to change your view?</p>
+        
+        <a href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20need%20help%20with%20my%20data%20purchase." class="whatsapp-btn" target="_blank">💬 Chat on WhatsApp Support</a>
+        
+        <button class="settings-btn" onclick="toggleDarkMode()">Toggle Dark / Light Mode</button>
     </div>
 
-    <div class="card">
-        <h3>Airtel 1GB (30 Days)</h3>
-        <p>Valid for 30 Days</p>
-        <p><strong>Price: ₦300</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20Airtel%201GB%2030-Day%20data." target="_blank">Order on WhatsApp</a>
-    </div>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
 
-    <!-- GLO PLANS -->
-    <div class="card">
-        <h3>Glo 1GB (1 Day)</h3>
-        <p>Valid for 24 Hours</p>
-        <p><strong>Price: ₦500</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20Glo%201GB%201-Day%20data." target="_blank">Order on WhatsApp</a>
-    </div>
+        function payWithPaystack(planName, amount) {
+            let userPhone = prompt('Enter the phone number to receive the data:');
+            if (!userPhone || userPhone.length < 10) {
+                alert('Please enter a valid phone number!');
+                return;
+            }
 
-    <div class="card">
-        <h3>Glo 2GB (7 Days)</h3>
-        <p>Valid for 7 Days</p>
-        <p><strong>Price: ₦500</strong></p>
-        <a class="btn" href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20want%20to%20buy%20Glo%202GB%207-Day%20data." target="_blank">Order on WhatsApp</a>
-    </div>
+            let userEmail = prompt('Enter your email address for receipt:');
+            if (!userEmail) {
+                userEmail = 'customer@damodatahub.com';
+            }
+
+            let handler = PaystackPop.setup({
+                key: 'pk_test_8162446e84ef55650a127f1b423a63803780cc72', 
+                email: userEmail,
+                amount: amount * 100,
+                currency: 'NGN',
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Data Plan",
+                            variable_name: "data_plan",
+                            value: planName
+                        },
+                        {
+                            display_name: "Recipient Phone Number",
+                            variable_name: "phone_number",
+                            value: userPhone
+                        }
+                    ]
+                },
+                callback: function(response) {
+                    alert('Payment successful! Reference: ' + response.reference + '\nYour data for ' + planName + ' sent to ' + userPhone + ' will be processed shortly.');
+                },
+                onClose: function() {
+                    alert('Transaction cancelled.');
+                }
+            });
+            handler.openIframe();
+        }
+    </script>
 
 </body>
 </html>
-
