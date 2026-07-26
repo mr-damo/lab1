@@ -326,8 +326,24 @@
                 }
             });
             handler.openIframe();
-        }
+        }function copyDataHubLink() {
+    const linkToCopy = "https://bit.ly/DamoDataHub";
+    navigator.clipboard.writeText(linkToCopy).then(() => {
+        const btn = document.getElementById("copyBtn");
+        btn.innerText = "✅ Link Copied!";
+        setTimeout(() => {
+            btn.innerText = "📋 Copy Link";
+        }, 2000);
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+}
+
     </script>
+<div style="margin: 20px 0; text-align: center;">
+    <button onclick="copyDataHubLink()" id="copyBtn" class="settings-btn" style="cursor: pointer;">📋 Copy Link</button>
+    <a href="https://api.whatsapp.com/send?text=Hey!%20Check%20out%20this%20reliable%20data%20plug%20site:%20https://bit.ly/DamoDataHub" target="_blank" class="whatsapp-btn" style="display: block; text-align: center; text-decoration: none; border-radius: 8px; padding: 12px 15px; color: white;">💬 Share on WhatsApp</a>
+</div>
 
 </body>
 </html>
