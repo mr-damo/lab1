@@ -1,396 +1,519 @@
-I'm<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Damo Data Hub - Fast & Reliable Data Bundles</title>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <title>Damo Data Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("KjEakaPTLnlRsHOS7");
+        })();
+    </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f1;
+        :root {
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #111827;
+            --sub-text: #6b7280;
+            --header-bg: #064e3b;
+            --accent-green: #10b981;
+            --btn-text: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #f3f4f6;
+            --sub-text: #9ca3af;
+            --header-bg: #064e3b;
+            --accent-green: #059669;
+            --btn-text: #ffffff;
+            --border-color: #2d2d2d;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
             padding: 15px;
-            color: #333;
             transition: background 0.3s, color 0.3s;
         }
-        body.dark-mode {
-            background-color: #121212;
-            color: #f0f0f0;
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
         }
-        header {
-            background: linear-gradient(135deg, #0b4f34, #13754b);
-            color: white;
+
+        .main-header {
+            background-color: var(--header-bg);
+            color: #ffffff;
+            text-align: center;
             padding: 25px 15px;
-            text-align: center;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 10px rgba(11, 79, 52, 0.2);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        h1 { margin: 0; font-size: 26px; }
-        p { margin: 8px 0 0; font-size: 14px; opacity: 0.95; }
-        .section-title {
-            color: #0b4f34;
-            border-bottom: 3px solid #0b4f34;
-            padding-bottom: 8px;
-            margin-top: 35px;
-            font-size: 20px;
+
+        .main-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #34d399;
         }
-        body.dark-mode .section-title {
-            color: #4db6ac;
-            border-bottom: 3px solid #4db6ac;
+
+        .main-header p {
+            font-size: 0.85rem;
+            color: #a7f3d0;
+            margin-bottom: 15px;
         }
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+
+        .section-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 25px 0 15px 5px;
+            border-left: 4px solid var(--accent-green);
+            padding-left: 8px;
         }
+
         .card {
-            background: white;
-            padding: 18px;
-            border-radius: 10px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-            text-align: center;
-            border-top: 4px solid #0b4f34;
-            transition: background 0.3s;
-        }
-        body.dark-mode .card {
-            background: #1e1e1e;
-            border-top: 4px solid #4db6ac;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-        }
-        .card h3 { margin: 0 0 8px; color: #222; font-size: 17px; }
-        body.dark-mode .card h3 { color: #fff; }
-        .validity { font-size: 13px; color: #666; margin-bottom: 10px; }
-        body.dark-mode .validity { color: #aaa; }
-        .price { font-size: 20px; font-weight: bold; color: #0b4f34; margin: 12px 0; }
-        body.dark-mode .price { color: #4db6ac; }
-        button {
-            background-color: #0b4f34;
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-        }
-        button:hover { background-color: #13754b; }
-        
-        /* Settings & Support Panel Styling */
-        .settings-bar {
-            margin-top: 40px;
-            background: white;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
             text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        body.dark-mode .settings-bar {
-            background: #1e1e1e;
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 4px;
         }
-        .settings-bar h3 { margin-top: 0; color: #0b4f34; }
-        body.dark-mode .settings-bar h3 { color: #4db6ac; }
-        .settings-btn {
-            background-color: #333;
-            margin-top: 10px;
+
+        .validity {
+            font-size: 0.8rem;
+            color: var(--sub-text);
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            background-color: var(--accent-green);
+            color: var(--btn-text);
+            border: none;
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
         }
-        body.dark-mode .settings-btn {
-            background-color: #444;
+
+        .buy-btn:hover {
+            opacity: 0.9;
         }
-        .whatsapp-btn {
-            background-color: #25d366;
-            margin-top: 10px;
-            text-decoration: none;
-            display: block;
-            color: white;
-            padding: 12px 15px;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 6px;
+
+        .settings-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
             text-align: center;
+            margin-top: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .whatsapp-btn:hover { background-color: #1ebe5d; }
+
+        .toggle-btn {
+            background-color: #334155;
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #checkoutModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 25px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: left;
+        }
+
+        .bank-info {
+            background: var(--bg-color);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--sub-text);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .modal-submit {
+            background-color: #10b981;
+            color: #ffffff;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .modal-close {
+            background-color: #ef4444;
+            color: #ffffff;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>⚡ Damo Data Hub ⚡</h1>
-        <p>Fast & Reliable Data Bundles</p>
-    </header>
+    <div class="container">
+        <!-- Main Header -->
+        <div class="main-header">
+            <h1>⚡ Damo Data Hub ⚡</h1>
+            <p>Fast & Reliable Data Bundles</p>
+        </div>
 
-    <!-- MTN SECTION -->
-    <h2 class="section-title">MTN Data Bundles</h2>
-    <div class="card-container">
-        <div class="card">
-            <h3>MTN 200MB</h3>
-            <div class="validity">Valid for 1 Day</div>
-            <div class="price">₦250</div>
-            <button onclick="paywithopenopaymodal('MTN 200MB (1-Day)', 250)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 500MB</h3>
-            <div class="validity">Valid for 2 Days</div>
-            <div class="price">₦400</div>
-            <button onclick="paywithopenopaymodal('MTN 500MB (2-Day)', 400)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 1GB</h3>
-            <div class="validity">Valid for 7 Days</div>
-            <div class="price">₦700</div>
-            <button onclick="paywithopenopaymodal('MTN 1GB (7-Day)', 700)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 1GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦550</div>
-            <button onclick="paywithopenopaymodal('MTN 1GB (30-Day)', 550)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 2GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦1,050</div>
-            <button onclick="paywithopenopaymodal('MTN 2GB (30-Day)', 1050)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 3GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦1,550</div>
-            <button onclick="paywithopenopaymodal('MTN 3GB (30-Day)', 1550)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 5GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦2,500</div>
-            <button onclick="paywithopenopaymodal('MTN 5GB (30-Day)', 2500)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>MTN 10GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦3,900</div>
-            <button onclick="paywithopenopaymodal('MTN 10GB (30-Day)', 3900)">Buy Now</button>
-        </div>
-    </div>
+        <!-- AIRTEL SECTION -->
+        <div class="section-heading">Airtel Data Bundles</div>
 
-    <!-- GLO SECTION -->
-    <h2 class="section-title">Glo Data Bundles</h2>
-    <div class="card-container">
-        <div class="card">
-            <h3>Glo 250MB</h3>
-            <div class="validity">Valid for 3 Days</div>
-            <div class="price">₦200</div>
-            <button onclick="payWithopenopaymodal('Glo 250MB (3-Day)', 200)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>Glo 800MB</h3>
-            <div class="validity">Valid for 7 Days</div>
-            <div class="price">₦650</div>
-            <button onclick="payWithopenopaymodal('Glo 800MB (7-Day)', 650)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>Glo 1.5GB</h3>
-            <div class="validity">Valid for 14 Days</div>
-            <div class="price">₦1,100</div>
-            <button onclick="payWithopenopaymodal('Glo 1.5GB (14-Day)', 1100)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>Glo 1GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦500</div>
-            <button onclick="payWithopenopaymodal('Glo 1GB (30-Day)', 500)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>Glo 3GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦1,450</div>
-            <button onclick="payWithopenopaymodal('Glo 3GB (30-Day)', 1450)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>Glo 7GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦3,200</div>
-            <button onclick="payWithopenopaymodal('Glo 7GB (30-Day)', 3200)">Buy Now</button>
-        </div>
-        <div class="card">
-            <h3>Glo 10GB</h3>
-            <div class="validity">Valid for 30 Days</div>
-            <div class="price">₦3,900</div>
-            <button onclick="payWithopenopaymodal('Glo 10GB (30-Day)', 3900)">Buy Now</button>
-        </div>
-    </div>
-
-    <!-- AIRTEL SECTION -->
-    <h2 class="section-title">Airtel Data Bundles</h2>
-    <div class="card-container">
         <div class="card">
             <h3>Airtel 150MB</h3>
             <div class="validity">Valid for 2 Days</div>
             <div class="price">₦200</div>
-            <button onclick="payWithopenopaymodal('Airtel 150MB (2-Day)', 200)">Buy Now</button>
+            <button class="buy-btn" data-plan="Airtel 150MB (2 Days) - ₦200">Buy Now</button>
         </div>
+
         <div class="card">
             <h3>Airtel 750MB</h3>
             <div class="validity">Valid for 7 Days</div>
             <div class="price">₦700</div>
-            <button onclick="payWithopenopaymodal('Airtel 750MB (7-Day)', 700)">Buy Now</button>
+            <button class="buy-btn" data-plan="Airtel 750MB (7 Days) - ₦700">Buy Now</button>
         </div>
+
         <div class="card">
             <h3>Airtel 2GB</h3>
             <div class="validity">Valid for 14 Days</div>
             <div class="price">₦1,400</div>
-            <button onclick="payWithopenopaymodal('Airtel 2GB (14-Day)', 1400)">Buy Now</button>
+            <button class="buy-btn" data-plan="Airtel 2GB (14 Days) - ₦1,400">Buy Now</button>
         </div>
+
         <div class="card">
             <h3>Airtel 1GB</h3>
             <div class="validity">Valid for 30 Days</div>
             <div class="price">₦500</div>
-            <button onclick="payWithopenopaymodal('Airtel 1GB (30-Day)', 500)">Buy Now</button>
+            <button class="buy-btn" data-plan="Airtel 1GB (30 Days) - ₦500">Buy Now</button>
         </div>
+
         <div class="card">
             <h3>Airtel 3GB</h3>
             <div class="validity">Valid for 30 Days</div>
             <div class="price">₦1,500</div>
-            <button onclick="payWithopenopaymodal('Airtel 3GB (30-Day)', 1500)">Buy Now</button>
+            <button class="buy-btn" data-plan="Airtel 3GB (30 Days) - ₦1,500">Buy Now</button>
         </div>
+
         <div class="card">
             <h3>Airtel 6GB</h3>
             <div class="validity">Valid for 30 Days</div>
             <div class="price">₦2,800</div>
-            <button onclick="payWithopenopaymodal('Airtel 6GB (30-Day)', 2800)">Buy Now</button>
+            <button class="buy-btn" data-plan="Airtel 6GB (30 Days) - ₦2,800">Buy Now</button>
         </div>
+
         <div class="card">
             <h3>Airtel 10GB</h3>
             <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦4,000</div>
+            <button class="buy-btn" data-plan="Airtel 10GB (30 Days) - ₦4,000">Buy Now</button>
+        </div>
+
+        <!-- GLO SECTION -->
+        <div class="section-heading">Glo Data Bundles</div>
+
+        <div class="card">
+            <h3>Glo 250MB</h3>
+            <div class="validity">Valid for 3 Days</div>
+            <div class="price">₦200</div>
+            <button class="buy-btn" data-plan="Glo 250MB (3 Days) - ₦200">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Glo 800MB</h3>
+            <div class="validity">Valid for 7 Days</div>
+            <div class="price">₦650</div>
+            <button class="buy-btn" data-plan="Glo 800MB (7 Days) - ₦650">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Glo 1.5GB</h3>
+            <div class="validity">Valid for 14 Days</div>
+            <div class="price">₦1,100</div>
+            <button class="buy-btn" data-plan="Glo 1.5GB (14 Days) - ₦1,100">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Glo 1GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦500</div>
+            <button class="buy-btn" data-plan="Glo 1GB (30 Days) - ₦500">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Glo 3GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,450</div>
+            <button class="buy-btn" data-plan="Glo 3GB (30 Days) - ₦1,450">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Glo 7GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦3,200</div>
+            <button class="buy-btn" data-plan="Glo 7GB (30 Days) - ₦3,200">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Glo 10GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦3,700</div>
+            <button class="buy-btn" data-plan="Glo 10GB (30 Days) - ₦3,700">Buy Now</button>
+        </div>
+
+        <!-- MTN SECTION -->
+        <div class="section-heading">MTN Data Bundles</div>
+
+        <div class="card">
+            <h3>MTN 200MB</h3>
+            <div class="validity">Valid for 1 Day</div>
+            <div class="price">₦250</div>
+            <button class="buy-btn" data-plan="MTN 200MB (1 Day) - ₦250">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 500MB</h3>
+            <div class="validity">Valid for 2 Days</div>
+            <div class="price">₦400</div>
+            <button class="buy-btn" data-plan="MTN 500MB (2 Days) - ₦400">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 1GB</h3>
+            <div class="validity">Valid for 7 Days</div>
+            <div class="price">₦700</div>
+            <button class="buy-btn" data-plan="MTN 1GB (7 Days) - ₦700">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 1GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦550</div>
+            <button class="buy-btn" data-plan="MTN 1GB (30 Days) - ₦550">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 2GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,050</div>
+            <button class="buy-btn" data-plan="MTN 2GB (30 Days) - ₦1,050">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 3GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦1,550</div>
+            <button class="buy-btn" data-plan="MTN 3GB (30 Days) - ₦1,550">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 5GB</h3>
+            <div class="validity">Valid for 30 Days</div>
+            <div class="price">₦2,500</div>
+            <button class="buy-btn" data-plan="MTN 5GB (30 Days) - ₦2,500">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>MTN 10GB</h3>
+            <div class="validity">Valid for 30 Days</div>
             <div class="price">₦3,900</div>
-            <button onclick="payWithopenopaymodal('Airtel 10GB (30-Day)', 3900)">Buy Now</button>
+            <button class="buy-btn" data-plan="MTN 10GB (30 Days) - ₦3,900">Buy Now</button>
+        </div>
+
+        <!-- Settings & Support Box -->
+        <div class="settings-card">
+            <h3>⚙️ Hub Settings</h3>
+            <button class="toggle-btn" id="themeToggle">Toggle Dark / Light Mode</button>
         </div>
     </div>
 
-    <!-- SETTINGS & SUPPORT PANEL -->
-    <div class="settings-bar">
-        <h3>⚙️ Hub Settings & Support</h3>
-        <p>Need help or want to change your view?</p>
-        
-        <a href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20need%20help%20with%20my%20data%20purchase." class="whatsapp-btn" target="_blank">💬 Chat on WhatsApp Support</a>
-        
-        <button class="settings-btn" onclick="toggleDarkMode()">Toggle Dark / Light Mode</button>
+    <!-- OPay Checkout Modal -->
+    <div id="checkoutModal">
+        <div class="modal-box">
+            <h3>Complete Your Order</h3>
+            <p style="font-size: 0.85rem; color: var(--sub-text); margin-bottom: 12px;">Transfer the exact amount to our OPay account:</p>
+            
+            <div class="bank-info">
+                <strong>Bank:</strong> OPay<br>
+                <strong>Account Number:</strong>9014759505<br>
+                <strong>Account Name:</strong>TSEBEE AONDOWASE DOMINIC
+            </div>
+
+            <div class="input-group">
+                <label>Selected Plan:</label>
+                <input type="text" id="selectedPlanDisplay" readonly style="font-weight: bold;">
+            </div>
+
+            <div class="input-group">
+                <label>Your Phone Number (To receive data):</label>
+                <input type="tel" id="customerPhone" placeholder="e.g. 08012345678">
+            </div>
+
+            <div class="input-group">
+                <label>Your Email Address:</label>
+                <input type="email" id="customerEmail" placeholder="e.g. user@gmail.com">
+            </div>
+
+            <button class="modal-submit" id="confirmTransferBtn">I Have Made the Transfer</button>
+            <button class="modal-close" id="closeModalBtn">Cancel</button>
+        </div>
     </div>
 
     <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-
-
-let currentPlan = '';
-
-function payWithPaystack(planName, amount) {
-    currentPlan = planName + " (₦" + amount + ")";
-    document.getElementById('selectedPlanText').innerText = 'Selected: ' + currentPlan;
-    document.getElementById('opayModal').style.display = 'flex';
-}
-
-document.getElementById('closeModalBtn').addEventListener('click', function() {
-    document.getElementById('opayModal').style.display = 'none';
-});
-
-document.getElementById('transferDoneBtn').addEventListener('click', function() {
-    const phone = document.getElementById('clientPhone').value;
-    
-    if (!phone || phone.length < 10) {
-        alert("Please enter your correct phone number!");
-        return;
-    }
-
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-        client_phone: phone,
-        order_details: currentPlan,
-        time: new Date().toLocaleString()
-    }).then(function() {
-        alert("Sent successfully! Drop the data now bro.");
-        document.getElementById('opayModal').style.display = 'none';
-        document.getElementById('clientPhone').value = '';
-    }, function(error) {
-        alert("Failed to send, message me directly on WhatsApp!");
-    });
-});
-            
-        }function copyDataHubLink() {
-    const linkToCopy = "https://bit.ly/DamoDataHub";
-    navigator.clipboard.writeText(linkToCopy).then(() => {
-        const btn = document.getElementById("copyBtn");
-        btn.innerText = "✅ Link Copied!";
-        setTimeout(() => {
-            btn.innerText = "📋 Copy Link";
-        }, 2000);
-    }).catch(err => {
-        console.error("Failed to copy: ", err);
-    });
-}
-
-    </script>
-<div style="margin: 20px 0; text-align: center;">
-    <button onclick="copyDataHubLink()" id="copyBtn" class="settings-btn" style="cursor: pointer;">📋 Copy Link</button>
-    <a href="https://api.whatsapp.com/send?text=Hey!%20Check%20out%20this%20reliable%20data%20plug%20site:%20https://bit.ly/DamoDataHub" target="_blank" class="whatsapp-btn" style="display: block; text-align: center; text-decoration: none; border-radius: 8px; padding: 12px 15px; color: white;">💬 Share on WhatsApp</a>
-</div>
-<div id="opayModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:9999;">
-    <div style="background:#fff; padding:20px; border-radius:10px; width:90%; max-width:400px; text-align:center; color:#333;">
-        <h3>Complete Your Transfer</h3>
-        <p id="selectedPlanText" style="margin: 10px 0; font-weight: bold;"></p>
-        
-        <div style="background:#f4f4f4; padding:10px; border-radius:8px; margin:15px 0; text-align:left;">
-            <p><strong>Bank:</strong> OPay</p>
-            <p><strong>Account No:</strong>9014759505</p>
-            <p><strong>Account Name:</strong>TSEBEE-AONDOWASE-DOMINIC</p>
-        </div>
-
-        <p style="font-size: 14px; color: #666;">Transfer the exact amount to the account above, then enter your phone number below and click confirm.</p>
-        
-        <input type="text" id="clientPhone" placeholder="Enter your phone number" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
-        
-        <button id="transferDoneBtn" style="background:#00C853; color:#fff; border:none; padding:10px 20px; width:100%; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:5px;">I Have Made the Transfer</button>
-        
-        <button id="closeModalBtn" style="background:#ff5252; color:#fff; border:none; padding:8px 15px; width:100%; border-radius:5px; cursor:pointer; margin-top:10px;">Cancel</button>
-    </div>
-</div>
-<script>
-    function openOpayModal(planName) {
-        const modal = document.getElementById('opayModal');
-        const planText = document.getElementById('selectedPlanText');
-        planText.innerText = "Selected Plan: " + planName;
-        modal.style.display = 'flex';
-    }
-
-    document.getElementById('closeModalBtn').addEventListener('click', function() {
-        document.getElementById('opayModal').style.display = 'none';
-    });
-
-    document.getElementById('transferDoneBtn').addEventListener('click', function() {
-        const phone = document.getElementById('clientPhone').value;
-        const plan = document.getElementById('selectedPlanText').innerText;
-
-        if (!phone) {
-            alert("Please enter your phone number.");
-            return;
-        }
-
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-            phone_number: phone,
-            selected_plan: plan
-        })
-        .then(function(response) {
-            alert("Payment notification sent! We will process your data shortly.");
-            document.getElementById('opayModal').style.display = 'none';
-            document.getElementById('clientPhone').value = '';
-        }, function(error) {
-            alert("Failed to send notification. Please contact support.");
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.getAttribute('data-theme') === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
         });
-    });
-</script>
-    
+
+        const modal = document.getElementById('checkoutModal');
+        const buyButtons = document.querySelectorAll('.buy-btn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const confirmTransferBtn = document.getElementById('confirmTransferBtn');
+        const selectedPlanDisplay = document.getElementById('selectedPlanDisplay');
+
+        buyButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const planText = e.target.getAttribute('data-plan');
+                selectedPlanDisplay.value = planText;
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        confirmTransferBtn.addEventListener('click', () => {
+            const phone = document.getElementById('customerPhone').value.trim();
+            const email = document.getElementById('customerEmail').value.trim();
+            const plan = selectedPlanDisplay.value;
+
+            if(!phone || phone.length < 10) {
+                alert("Please put a valid phone number for the data delivery!");
+                return;
+            }
+
+            if(!email || !email.includes('@')) {
+                alert("Please put a valid email address!");
+                return;
+            }
+
+            confirmTransferBtn.innerText = "Sending order...";
+            confirmTransferBtn.disabled = true;
+
+            const templateParams = {
+                name: "Customer",
+                email: email,
+                phone: phone,
+                message: `New data order received!\nPlan: ${plan}\nPhone Number to Recharge: ${phone}\nCustomer Email: ${email}`
+            };
+
+            emailjs.send("service_o5cu9l1", "template_6m03x3s", templateParams)
+                .then(function(response) {
+                    alert("Order sent successfully! Damo will receive your details now.");
+                    modal.style.display = 'none';
+                    confirmTransferBtn.innerText = "I Have Made the Transfer";
+                    confirmTransferBtn.disabled = false;
+                }, function(error) {
+                    alert("Failed to send order. Please check your network or configuration.");
+                    console.log('FAILED...', error);
+                    confirmTransferBtn.innerText = "I Have Made the Transfer";
+                    confirmTransferBtn.disabled = false;
+                });
+        });
+    </script>
 </body>
 </html>
