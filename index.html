@@ -513,7 +513,28 @@
                     confirmTransferBtn.innerText = "I Have Made the Transfer";
                     confirmTransferBtn.disabled = false;
                 });
+              }); // <-- this closes your emailjs function around line 516
+
+        // Paste the JavaScript code right here:
+        const shareBtn = document.getElementById('shareBtn');
+        shareBtn.addEventListener('click', () => {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                alert("Hub link copied to clipboard successfully! Share am with your customers.");
+            }).catch(err => {
+                alert("Failed to copy link. You can copy the URL from your browser address bar.");
+            });
         });
-    </script>
+
+    </script> <!-- Line 517 -->
+          <!-- Settings & Support Box -->
+        <div class="settings-card">
+            <h3>⚙️ Hub Controls & Support</h3>
+            <a href="https://wa.me/2349122293418?text=Hello%20Damo,%20I%20have%20made%20a%20payment%20on%20your%20Data%20Hub.%20Here%20is%20my%20proof:" class="whatsapp-btn" target="_blank">💬 Chat on WhatsApp</a>
+            <button class="share-btn" id="shareBtn">🔗 Copy Hub Link</button>
+            <button class="toggle-btn" id="themeToggle" style="margin-top: 10px;">🌓 Toggle Dark / Light Mode</button>
+        </div>
+
+    
 </body>
 </html>
