@@ -284,48 +284,41 @@
 
     <script>
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
+            document.body.classList.toggle('dark-
 
-        function payWithPaystack(planName, amount) {
-            let userPhone = prompt('Enter the phone number to receive the data:');
-            if (!userPhone || userPhone.length < 10) {
-                alert('Please enter a valid phone number!');
-                return;
-            }
+let currentPlan = '';
 
-            let userEmail = prompt('Enter your email address for receipt:');
-            if (!userEmail) {
-                userEmail = 'customer@damodatahub.com';
-            }
+function payWithPaystack(planName, amount) {
+    currentPlan = planName + " (₦" + amount + ")";
+    document.getElementById('selectedPlanText').innerText = 'Selected: ' + currentPlan;
+    document.getElementById('opayModal').style.display = 'flex';
+}
 
-            let handler = PaystackPop.setup({
-                key: 'pk_test_8162446e84ef55650a127f1b423a63803780cc72', 
-                email: userEmail,
-                amount: amount * 100,
-                currency: 'NGN',
-                metadata: {
-                    custom_fields: [
-                        {
-                            display_name: "Data Plan",
-                            variable_name: "data_plan",
-                            value: planName
-                        },
-                        {
-                            display_name: "Recipient Phone Number",
-                            variable_name: "phone_number",
-                            value: userPhone
-                        }
-                    ]
-                },
-                callback: function(response) {
-                    alert('Payment successful! Reference: ' + response.reference + '\nYour data for ' + planName + ' sent to ' + userPhone + ' will be processed shortly.');
-                },
-                onClose: function() {
-                    alert('Transaction cancelled.');
-                }
-            });
-            handler.openIframe();
+document.getElementById('closeModalBtn').addEventListener('click', function() {
+    document.getElementById('opayModal').style.display = 'none';
+});
+
+document.getElementById('transferDoneBtn').addEventListener('click', function() {
+    const phone = document.getElementById('clientPhone').value;
+    
+    if (!phone || phone.length < 10) {
+        alert("Please enter your correct phone number!");
+        return;
+    }
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+        client_phone: phone,
+        order_details: currentPlan,
+        time: new Date().toLocaleString()
+    }).then(function() {
+        alert("Sent successfully! Drop the data now bro.");
+        document.getElementById('opayModal').style.display = 'none';
+        document.getElementById('clientPhone').value = '';
+    }, function(error) {
+        alert("Failed to send, message me directly on WhatsApp!");
+    });
+});
+            
         }function copyDataHubLink() {
     const linkToCopy = "https://bit.ly/DamoDataHub";
     navigator.clipboard.writeText(linkToCopy).then(() => {
@@ -343,6 +336,26 @@
 <div style="margin: 20px 0; text-align: center;">
     <button onclick="copyDataHubLink()" id="copyBtn" class="settings-btn" style="cursor: pointer;">📋 Copy Link</button>
     <a href="https://api.whatsapp.com/send?text=Hey!%20Check%20out%20this%20reliable%20data%20plug%20site:%20https://bit.ly/DamoDataHub" target="_blank" class="whatsapp-btn" style="display: block; text-align: center; text-decoration: none; border-radius: 8px; padding: 12px 15px; color: white;">💬 Share on WhatsApp</a>
+</div>
+<div id="opayModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:9999;">
+    <div style="background:#fff; padding:20px; border-radius:10px; width:90%; max-width:400px; text-align:center; color:#333;">
+        <h3>Complete Your Transfer</h3>
+        <p id="selectedPlanText" style="margin: 10px 0; font-weight: bold;"></p>
+        
+        <div style="background:#f4f4f4; padding:10px; border-radius:8px; margin:15px 0; text-align:left;">
+            <p><strong>Bank:</strong> OPay</p>
+            <p><strong>Account No:</strong>9014759505</p>
+            <p><strong>Account Name:</strong>TSEBEE-AONDOWASE-DOMINIC</p>
+        </div>
+
+        <p style="font-size: 14px; color: #666;">Transfer the exact amount to the account above, then enter your phone number below and click confirm.</p>
+        
+        <input type="text" id="clientPhone" placeholder="Enter your phone number" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+        
+        <button id="transferDoneBtn" style="background:#00C853; color:#fff; border:none; padding:10px 20px; width:100%; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:5px;">I Have Made the Transfer</button>
+        
+        <button id="closeModalBtn" style="background:#ff5252; color:#fff; border:none; padding:8px 15px; width:100%; border-radius:5px; cursor:pointer; margin-top:10px;">Cancel</button>
+    </div>
 </div>
 
 </body>
