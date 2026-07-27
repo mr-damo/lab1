@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+I'm<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -357,6 +357,40 @@ document.getElementById('transferDoneBtn').addEventListener('click', function() 
         <button id="closeModalBtn" style="background:#ff5252; color:#fff; border:none; padding:8px 15px; width:100%; border-radius:5px; cursor:pointer; margin-top:10px;">Cancel</button>
     </div>
 </div>
+<script>
+    function openOpayModal(planName) {
+        const modal = document.getElementById('opayModal');
+        const planText = document.getElementById('selectedPlanText');
+        planText.innerText = "Selected Plan: " + planName;
+        modal.style.display = 'flex';
+    }
 
+    document.getElementById('closeModalBtn').addEventListener('click', function() {
+        document.getElementById('opayModal').style.display = 'none';
+    });
+
+    document.getElementById('transferDoneBtn').addEventListener('click', function() {
+        const phone = document.getElementById('clientPhone').value;
+        const plan = document.getElementById('selectedPlanText').innerText;
+
+        if (!phone) {
+            alert("Please enter your phone number.");
+            return;
+        }
+
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            phone_number: phone,
+            selected_plan: plan
+        })
+        .then(function(response) {
+            alert("Payment notification sent! We will process your data shortly.");
+            document.getElementById('opayModal').style.display = 'none';
+            document.getElementById('clientPhone').value = '';
+        }, function(error) {
+            alert("Failed to send notification. Please contact support.");
+        });
+    });
+</script>
+    
 </body>
 </html>
