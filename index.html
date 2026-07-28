@@ -535,9 +535,13 @@ if (transferButton) {
         if (!confirmTransfer) {
             e.preventDefault();
             alert("Please make the transfer first before clicking this button.");
-        }
-    });
+        
+   function copySiteLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Hub link copied to clipboard!");
 }
+ 
+
 </script>
 
           <!-- Settings & Support Box -->
