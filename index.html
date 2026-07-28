@@ -526,7 +526,20 @@
             });
         });
 
-    </script> <!-- Line 517 -->
+    // Transfer button warning check
+const transferButton = document.querySelector('.whatsapp-btn'); // Make sure this matches your transfer button class or ID
+if (transferButton) {
+    transferButton.addEventListener('click', function(e) {
+        let confirmTransfer = confirm("⚠️ WARNING: Have you actually transferred the exact amount to the OPay account? Clicking OK without paying means your order will be cancelled and your number will be ignored.");
+        
+        if (!confirmTransfer) {
+            e.preventDefault();
+            alert("Please make the transfer first before clicking this button.");
+        }
+    });
+}
+</script>
+
           <!-- Settings & Support Box -->
         <div class="settings-card">
             <h3>⚙️ Hub Controls & Support</h3>
@@ -535,6 +548,12 @@
             <button class="toggle-btn" id="themeToggle" style="margin-top: 10px;">🌓 Toggle Dark / Light Mode</button>
         </div>
 
-    
+    <!-- Share & Copy Link Section -->
+<div style="text-align: center; margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+    <p style="margin-bottom: 10px; font-weight: bold; color: #333;">Share Damo Data Hub with friends:</p>
+    <button onclick="copySiteLink()" style="background: #25D366; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px;">📋 Copy Link</button>
+    <a id="whatsappShareBtn" href="#" target="_blank" style="background: #128C7E; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; display: inline-block; font-weight: bold;">💬 Share on WhatsApp</a>
+</div>
+
 </body>
 </html>
